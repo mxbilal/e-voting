@@ -3,10 +3,12 @@ import { FaUser, FaEye, FaEyeSlash } from "react-icons/fa";
 // import userIcon from "../../assets/user.svg";
 // import eyeIcon from "../../assets/eye.svg";
 import loginLogo from "../../assets/login_logo.svg";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 const LoginPage = () => {
   const navigate = useNavigate();
+  const { name } = useParams();
+
   const [passwordVisible, setPasswordVisible] = useState(false);
 
   const togglePasswordVisibility = () => {
@@ -15,17 +17,30 @@ const LoginPage = () => {
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    navigate("/dashboard");
+    switch (name) {
+      case "election-commission":
+        navigate("/dashboard");
+        break;
+      case "presiding-officer":
+        navigate("/poling-station/1");
+        break;
+      case "assistant-presiding-officer":
+        navigate("/verify-voter");
+        break;
+      case "poling-agent":
+        navigate("/booth");
+        break;
+    }
   };
 
   return (
-    <div className="bg-black min-h-screen flex items-center justify-center">
+    <div className="bg-black flex items-center justify-center">
       <div className="bg-transparent p-8 rounded-lg shadow-lg max-w-md w-full">
         <div className="flex justify-center mb-8">
           <img src={loginLogo} alt="E-Voting Logo" className="w-32 h-32" />
         </div>
-        <h2 className="text-center text-2xl text-green-500 mb-6">
-          Election Commission
+        <h2 className="text-center text-2xl text-green-500 mb-6 capitalize ">
+          {name.replaceAll("-", " ")}
         </h2>
         <form onSubmit={handleLogin}>
           <div className="mb-4">

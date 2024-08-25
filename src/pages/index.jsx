@@ -17,10 +17,6 @@ const HomePage = () => {
     setIsPopupVisible(true);
   };
 
-  const handleClosePopup = () => {
-    setIsPopupVisible(false);
-  };
-
   // Close popup if clicking outside of it
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -36,7 +32,7 @@ const HomePage = () => {
   }, [popupRef]);
 
   const handleLoginAsElectionCommission = () => {
-    navigate("/login");
+    navigate("/login/election-commission");
   };
 
   return (
@@ -99,7 +95,7 @@ const HomePage = () => {
             className="bg-white rounded-lg shadow-lg p-4 max-w-sm w-full"
           >
             <div
-              className="flex items-center justify-between mb-4 cursor-pointer"
+              className="flex items-center justify-between py-2 cursor-pointer"
               onClick={handleLoginAsElectionCommission}
             >
               <span className="text-gray-800 flex gap-3">
@@ -107,9 +103,10 @@ const HomePage = () => {
                 Login as Election Commission {" ->"}
               </span>
             </div>
+            <hr />
             <div
-              className="flex items-center justify-between cursor-pointer"
-              onClick={handleClosePopup}
+              className="flex items-center justify-between py-2 cursor-pointer"
+              onClick={() => navigate("/welcome")}
             >
               <span className="text-gray-800 flex gap-3">
                 <img src={voteIcon} alt="Vote Icon" width={20} />
