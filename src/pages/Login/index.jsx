@@ -25,10 +25,12 @@ const LoginPage = () => {
         navigate("/poling-station/1");
         break;
       case "assistant-presiding-officer":
-        navigate("/verify-voter");
+        // navigate("/verify-voter");
+        console.log("11");
         break;
       case "poling-agent":
-        navigate("/booth");
+        // navigate("/booth");
+        console.log("11");
         break;
     }
   };
