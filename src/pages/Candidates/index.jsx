@@ -2,6 +2,7 @@ import React from "react";
 import { FaSearch, FaBell } from "react-icons/fa";
 import CandidateImg1 from "../../assets/candidate1.svg";
 import { useNavigate } from "react-router-dom";
+import CandidateCard from "../../components/CandidateCard";
 // Add more images as necessary
 
 const candidates = [
@@ -29,6 +30,7 @@ const candidates = [
 
 const CandidateList = () => {
   const navigate = useNavigate();
+  const handleClick = (id) => navigate("/candidate-profile/1");
   return (
     <div className="min-h-screen bg-black text-white p-5">
       {/* Top Section with Search and Icons */}
@@ -86,29 +88,11 @@ const CandidateList = () => {
       {/* Candidate Cards */}
       <div className="grid grid-cols-2 gap-4">
         {candidates.map((candidate, index) => (
-          <div
+          <CandidateCard
+            candidate={candidate}
             key={index}
-            className="bg-gray-800 p-5 rounded-lg text-center  cursor-pointer"
-            onClick={() => navigate("/candidate-profile/1")}
-          >
-            <div className="w-24 h-24 mx-auto mb-3">
-              {candidate.imgSrc ? (
-                <img
-                  src={candidate.imgSrc}
-                  alt={candidate.name}
-                  className="w-full h-full object-cover rounded-full"
-                />
-              ) : (
-                <div className="w-full h-full bg-gray-700 rounded-full flex items-center justify-center">
-                  <span className="text-black">No Image</span>
-                </div>
-              )}
-            </div>
-            <h3 className="text-lg font-bold text-green-400">
-              {candidate.name}
-            </h3>
-            <p>{candidate.type}</p>
-          </div>
+            onClick={handleClick}
+          />
         ))}
       </div>
     </div>
