@@ -26,11 +26,9 @@ const LoginPage = () => {
         break;
       case "assistant-presiding-officer":
         navigate("/verify-voter");
-        console.log("11");
         break;
       case "poling-agent":
         navigate("/booth");
-        console.log("11");
         break;
     }
   };
