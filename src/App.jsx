@@ -17,6 +17,11 @@ import WelcomeBack from "./pages/Welcome";
 import VerifyVoter from "./pages/VerifyVoter";
 import CheckVoter from "./pages/CheckVoter";
 import Booth from "./pages/Booth";
+import StartVote from "./pages/StartVote/index.jsx";
+import CheckVote from "./pages/CheckVote/index.jsx";
+import ChooseCandidate from "./pages/ChooseCandidate/index.jsx";
+import ScanThumb from "./pages/ScanThumb/index.jsx";
+import VoteSuccess from "./pages/VoteSuccess/index.jsx";
 
 const routes = [
   {
@@ -38,6 +43,11 @@ const routes = [
       { path: "verify-voter", element: <VerifyVoter /> },
       { path: "check-voter/:cnic", element: <CheckVoter /> },
       { path: "booth", element: <Booth /> },
+      { path: "start-vote/:id", element: <StartVote /> },
+      { path: "check-vote/:cnic", element: <CheckVote /> },
+      { path: "choose-candidate", element: <ChooseCandidate /> },
+      { path: "scan-thumb", element: <ScanThumb /> },
+      { path: "vote-success", element: <VoteSuccess /> },
     ],
   },
 ];
