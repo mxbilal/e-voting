@@ -69,10 +69,10 @@ const CandidateList = () => {
           Province <br /> <span className="font-bold">Punjab</span>
         </button>
         <button className="bg-gray-800 rounded p-3">
-          District <br /> <span className="font-bold">Qasur</span>
+          Division <br /> <span className="font-bold">Chunian</span>
         </button>
         <button className="bg-gray-800 rounded p-3">
-          Division <br /> <span className="font-bold">Chunian</span>
+          District <br /> <span className="font-bold">Qasur</span>
         </button>
         <button className="bg-gray-800 rounded p-3">
           Tehseel <br /> <span className="font-bold">GidPur</span>
