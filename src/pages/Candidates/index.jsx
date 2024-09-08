@@ -1,9 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import { FaSearch, FaBell } from "react-icons/fa";
 import CandidateImg1 from "../../assets/candidate1.svg";
 import { useNavigate } from "react-router-dom";
 import CandidateCard from "../../components/CandidateCard";
-// Add more images as necessary
 
 const candidates = [
   {
@@ -14,23 +13,39 @@ const candidates = [
   {
     name: "Ghulam Murtaza",
     type: "TLP",
-    imgSrc: "", // Placeholder image or leave empty if none
+    imgSrc: "",
   },
   {
     name: "Haji Khan",
     type: "PTI",
-    imgSrc: "", // Placeholder image or leave empty if none
+    imgSrc: "",
   },
   {
     name: "Gulam Mahudeen",
     type: "PPP",
-    imgSrc: "", // Placeholder image or leave empty if none
+    imgSrc: "",
   },
 ];
+
+const provinces = ["Punjab", "Sindh", "KPK", "Balochistan"];
+const divisions = ["Chunian", "Lahore", "Faisalabad"];
+const districts = ["Qasur", "Lahore", "Multan"];
+const tehsils = ["GidPur", "Kot Radha Kishan", "Kasur"];
+const councils = ["UC-71", "UC-72", "UC-73"];
+const pollingStations = ["101", "102", "103"];
 
 const CandidateList = () => {
   const navigate = useNavigate();
   const handleClick = (id) => navigate("/candidate-profile/1");
+
+  // State for dropdown selections
+  const [selectedProvince, setSelectedProvince] = useState(provinces[0]);
+  const [selectedDivision, setSelectedDivision] = useState(divisions[0]);
+  const [selectedDistrict, setSelectedDistrict] = useState(districts[0]);
+  const [selectedTehsil, setSelectedTehsil] = useState(tehsils[0]);
+  const [selectedCouncil, setSelectedCouncil] = useState(councils[0]);
+  const [selectedPollingStation, setSelectedPollingStation] = useState(pollingStations[0]);
+
   return (
     <div className="min-h-screen bg-black text-white p-5">
       {/* Top Section with Search and Icons */}
@@ -63,26 +78,92 @@ const CandidateList = () => {
         </div>
       </div>
 
-      {/* Filter Buttons */}
+      {/* Filter Dropdowns */}
       <div className="grid grid-cols-3 gap-2 mb-5">
-        <button className="bg-gray-800 rounded p-3">
-          Province <br /> <span className="font-bold">Punjab</span>
-        </button>
-        <button className="bg-gray-800 rounded p-3">
-          Division <br /> <span className="font-bold">Chunian</span>
-        </button>
-        <button className="bg-gray-800 rounded p-3">
-          District <br /> <span className="font-bold">Qasur</span>
-        </button>
-        <button className="bg-gray-800 rounded p-3">
-          Tehseel <br /> <span className="font-bold">GidPur</span>
-        </button>
-        <button className="bg-gray-800 rounded p-3">
-          Council <br /> <span className="font-bold">UC-71</span>
-        </button>
-        <button className="bg-gray-800 rounded p-3">
-          Polling Station <br /> <span className="font-bold">101</span>
-        </button>
+        <div className="bg-gray-800 rounded p-3">
+          <label className="block mb-2">Province</label>
+          <select
+            className="bg-gray-700 text-white p-2 rounded w-full"
+            value={selectedProvince}
+            onChange={(e) => setSelectedProvince(e.target.value)}
+          >
+            {provinces.map((province) => (
+              <option key={province} value={province}>
+                {province}
+              </option>
+            ))}
+          </select>
+        </div>
+        <div className="bg-gray-800 rounded p-3">
+          <label className="block mb-2">Division</label>
+          <select
+            className="bg-gray-700 text-white p-2 rounded w-full"
+            value={selectedDivision}
+            onChange={(e) => setSelectedDivision(e.target.value)}
+          >
+            {divisions.map((division) => (
+              <option key={division} value={division}>
+                {division}
+              </option>
+            ))}
+          </select>
+        </div>
+        <div className="bg-gray-800 rounded p-3">
+          <label className="block mb-2">District</label>
+          <select
+            className="bg-gray-700 text-white p-2 rounded w-full"
+            value={selectedDistrict}
+            onChange={(e) => setSelectedDistrict(e.target.value)}
+          >
+            {districts.map((district) => (
+              <option key={district} value={district}>
+                {district}
+              </option>
+            ))}
+          </select>
+        </div>
+        <div className="bg-gray-800 rounded p-3">
+          <label className="block mb-2">Tehsil</label>
+          <select
+            className="bg-gray-700 text-white p-2 rounded w-full"
+            value={selectedTehsil}
+            onChange={(e) => setSelectedTehsil(e.target.value)}
+          >
+            {tehsils.map((tehsil) => (
+              <option key={tehsil} value={tehsil}>
+                {tehsil}
+              </option>
+            ))}
+          </select>
+        </div>
+        <div className="bg-gray-800 rounded p-3">
+          <label className="block mb-2">Council</label>
+          <select
+            className="bg-gray-700 text-white p-2 rounded w-full"
+            value={selectedCouncil}
+            onChange={(e) => setSelectedCouncil(e.target.value)}
+          >
+            {councils.map((council) => (
+              <option key={council} value={council}>
+                {council}
+              </option>
+            ))}
+          </select>
+        </div>
+        <div className="bg-gray-800 rounded p-3">
+          <label className="block mb-2">Polling Station</label>
+          <select
+            className="bg-gray-700 text-white p-2 rounded w-full"
+            value={selectedPollingStation}
+            onChange={(e) => setSelectedPollingStation(e.target.value)}
+          >
+            {pollingStations.map((station) => (
+              <option key={station} value={station}>
+                {station}
+              </option>
+            ))}
+          </select>
+        </div>
       </div>
 
       {/* Candidate Cards */}

@@ -4,12 +4,15 @@ import { FaUser, FaEye, FaEyeSlash } from "react-icons/fa";
 // import eyeIcon from "../../assets/eye.svg";
 import loginLogo from "../../assets/login_logo.svg";
 import { useNavigate, useParams } from "react-router-dom";
+import voteCall from "../../VoteCall";
 
 const LoginPage = () => {
   const navigate = useNavigate();
   const { name } = useParams();
 
+  const [state, SetState] = useState({ email: "", password: "" });
   const [passwordVisible, setPasswordVisible] = useState(false);
+  const [loader, setLoader] = useState(false);
 
   const togglePasswordVisibility = () => {
     setPasswordVisible(!passwordVisible);
@@ -17,20 +20,38 @@ const LoginPage = () => {
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    switch (name) {
-      case "election-commission":
-        navigate("/dashboard");
-        break;
-      case "presiding-officer":
-        navigate("/poling-station/1");
-        break;
-      case "assistant-presiding-officer":
-        navigate("/verify-voter");
-        break;
-      case "poling-agent":
-        navigate("/booth");
-        break;
+    setLoader(true);
+
+    try {
+      let res = await voteCall.post("user/login/", {
+        email: state.email,
+        password: state.password,
+      });
+      const { data, status } = res;
+      if (status === 200 && data) {
+        const { result } = data;
+        window.localStorage.setItem("token", result?.access_token);
+        window.localStorage.setItem("refresh_token", result?.refresh_token);
+        window.localStorage.setItem("user", JSON.stringify(result?.user));
+        switch (name) {
+          case "election-commission":
+            window.location.replace("/dashboard");
+            break;
+          case "presiding-officer":
+            window.location.replace("/poling-station/1");
+            break;
+          case "assistant-presiding-officer":
+            window.location.replace("/verify-voter");
+            break;
+          case "poling-agent":
+            window.location.replace("/booth");
+            break;
+        }
+      } else alert("something went wrong");
+    } catch (e) {
+      alert("Wrong Credential");
     }
+    setLoader(false);
   };
 
   return (
@@ -46,17 +67,20 @@ const LoginPage = () => {
           <div className="mb-4">
             <label
               className="block text-white text-sm font-bold mb-2"
-              htmlFor="username"
+              htmlFor="email"
             >
-              Enter username
+              Enter Email
             </label>
             <div className="flex items-center border border-white bg-green-900 rounded p-2 ">
               <FaUser className="text-white mr-2" />
               <input
-                type="text"
-                id="username"
-                placeholder="Enter username"
+                type="email"
+                id="email"
+                required
+                placeholder="Enter Email"
                 className="bg-transparent w-full text-white focus:outline-none"
+                value={state.email}
+                onChange={(e) => SetState({ ...state, email: e.target.value })}
               />
             </div>
           </div>
@@ -71,8 +95,13 @@ const LoginPage = () => {
               <input
                 type={passwordVisible ? "text" : "password"}
                 id="password"
+                required
                 placeholder="Enter password"
                 className="bg-transparent w-full text-white focus:outline-none"
+                value={state.password}
+                onChange={(e) =>
+                  SetState({ ...state, password: e.target.value })
+                }
               />
               <div
                 onClick={togglePasswordVisibility}
@@ -86,6 +115,7 @@ const LoginPage = () => {
             <button
               type="submit"
               className="bg-green-900 text-white font-bold py-2 px-4 rounded hover:bg-green-800 focus:outline-none focus:ring-2 "
+              disabled={loader}
             >
               Login
             </button>
