@@ -30,22 +30,27 @@ const LoginPage = () => {
       const { data, status } = res;
       if (status === 200 && data) {
         const { result } = data;
-        window.localStorage.setItem("token", result?.access_token);
-        window.localStorage.setItem("refresh_token", result?.refresh_token);
-        window.localStorage.setItem("user", JSON.stringify(result?.user));
-        switch (name) {
-          case "election-commission":
-            window.location.replace("/dashboard");
-            break;
-          case "presiding-officer":
-            window.location.replace("/poling-station/1");
-            break;
-          case "assistant-presiding-officer":
-            window.location.replace("/verify-voter");
-            break;
-          case "poling-agent":
-            window.location.replace("/booth");
-            break;
+        let validRole = result?.user?.role === name;
+        if (!validRole) {
+          alert("Please Login with Role of " + name);
+        } else {
+          window.localStorage.setItem("token", result?.access_token);
+          window.localStorage.setItem("refresh_token", result?.refresh_token);
+          window.localStorage.setItem("user", JSON.stringify(result?.user));
+          switch (name) {
+            case "election-commission":
+              window.location.replace("/dashboard");
+              break;
+            case "presiding-officer":
+              window.location.replace("/poling-station/1");
+              break;
+            case "assistant-presiding-officer":
+              window.location.replace("/verify-voter");
+              break;
+            case "poling-agent":
+              window.location.replace("/booth");
+              break;
+          }
         }
       } else alert("something went wrong");
     } catch (e) {

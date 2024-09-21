@@ -3,27 +3,29 @@ import { FaSearch, FaBell } from "react-icons/fa";
 import CandidateImg1 from "../../assets/candidate1.svg";
 import { useNavigate } from "react-router-dom";
 import CandidateCard from "../../components/CandidateCard";
+import cand1 from "../../assets/cand1.jpg";
+import userIcon from "../../assets/user_icon.svg";
 
 const candidates = [
   {
-    name: "Ch. Nasar ullah Arain",
-    type: "Independent",
+    name: "Malik Hajji Zaman S/O M. Tufail",
+    type: "PTI",
     imgSrc: CandidateImg1,
   },
   {
-    name: "Ghulam Murtaza",
-    type: "TLP",
-    imgSrc: "",
+    name: "Ghulam Mohiudeen Bhatti",
+    type: "N league",
+    imgSrc: userIcon,
   },
   {
-    name: "Haji Khan",
-    type: "PTI",
-    imgSrc: "",
+    name: "Malik Abbas S/O Malik Shahnawaz",
+    type: "Azad",
+    imgSrc: cand1,
   },
   {
-    name: "Gulam Mahudeen",
+    name: "Nazar Ullah Arain S/O Muhammad Din",
     type: "PPP",
-    imgSrc: "",
+    imgSrc: userIcon,
   },
 ];
 
@@ -44,7 +46,9 @@ const CandidateList = () => {
   const [selectedDistrict, setSelectedDistrict] = useState(districts[0]);
   const [selectedTehsil, setSelectedTehsil] = useState(tehsils[0]);
   const [selectedCouncil, setSelectedCouncil] = useState(councils[0]);
-  const [selectedPollingStation, setSelectedPollingStation] = useState(pollingStations[0]);
+  const [selectedPollingStation, setSelectedPollingStation] = useState(
+    pollingStations[0]
+  );
 
   return (
     <div className="min-h-screen bg-black text-white p-5">
