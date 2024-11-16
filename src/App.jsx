@@ -12,7 +12,7 @@ import CandidateList from "./pages/Candidates";
 import PollingStations from "./pages/PoliingStations";
 import PollingStationDetail from "./pages/PolingStationDetail";
 import VotesDetail from "./pages/VotesDetail";
-import CandidateProfile from "./pages/CandidateProfile/ndex.jsx";
+import CandidateProfile from "./pages/CandidateProfile";
 import WelcomeBack from "./pages/Welcome";
 import VerifyVoter from "./pages/VerifyVoter";
 import CheckVoter from "./pages/CheckVoter";
@@ -32,11 +32,11 @@ const routes = [
       { path: "login/:name", element: <LoginPage /> },
       { path: "dashboard", element: <Dashboard /> },
       { path: "register-voters", element: <RegisteredVoters /> },
-      { path: "total-votes", element: <TotalVotes /> },
+      { path: "total-votes/:id", element: <TotalVotes /> },
       { path: "candidates", element: <CandidateList /> },
       { path: "poling-stations", element: <PollingStations /> },
       { path: "poling-station/:id", element: <PollingStationDetail /> },
-      { path: "votes-detail", element: <VotesDetail /> },
+      { path: "votes-detail/:type/:id", element: <VotesDetail /> },
       { path: "candidate-profile/:id", element: <CandidateProfile /> },
 
       { path: "welcome", element: <WelcomeBack /> },

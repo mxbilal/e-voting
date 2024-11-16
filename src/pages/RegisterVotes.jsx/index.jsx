@@ -1,19 +1,26 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { getVoters } from "../../VoteAPI";
 
 const RegisteredVoters = () => {
+  const [voters, setVoters] = useState([]);
+
+  const getVotersAPI = async () => {
+    let res = await getVoters();
+    setVoters(res?.data || []);
+  };
+  useEffect(() => {
+    getVotersAPI();
+  }, []);
+
   return (
     <div className="min-h-screen bg-black text-white p-5">
       <div className="max-w-4xl mx-auto">
         <div className="flex justify-between items-center mb-5">
-          <input
-            type="text"
-            placeholder="search"
-            className="p-2 bg-gray-800 text-white rounded focus:outline-none"
-          />
+          <input type="text" placeholder="search" className="p-2 bg-gray-800 text-white rounded focus:outline-none" />
           <div className="text-right">
             <p className="text-xl">Registered Voters:</p>
             <p>
-              Total: <span className="text-green-400">50,000</span>
+              Total: <span className="text-green-400">{voters?.length || 0}</span>
             </p>
           </div>
         </div>
@@ -50,23 +57,25 @@ const RegisteredVoters = () => {
             <thead className="">
               <tr>
                 <th className="p-3">Sr No.</th>
-                <th className="p-3">House No.</th>
                 <th className="p-3">Name</th>
                 <th className="p-3">Father’s Name</th>
-                <th className="p-3">Age</th>
+                <th className="p-3">Poling Station</th>
                 <th className="p-3">CNIC No.</th>
+                <th className="p-3">Address</th>
               </tr>
             </thead>
             <tbody>
-              <tr className="bg-gray-800">
-                <td className="p-3">01</td>
-                <td className="p-3">01</td>
-                <td className="p-3">M. Haneef</td>
-                <td className="p-3">M. Ramzan</td>
-                <td className="p-3">68</td>
-                <td className="p-3">35201-7370701</td>
-              </tr>
-              <tr className="bg-gray-800">
+              {voters.map((voter) => (
+                <tr key={voter.id} className="bg-gray-800">
+                  <td className="p-3">{voter.id}</td>
+                  <td className="p-3">{voter?.name}</td>
+                  <td className="p-3">{voter?.father_name}</td>
+                  <td className="p-3">{voter?.polling_station?.name}</td>
+                  <td className="p-3">{voter?.cnic}</td>
+                  <td className="p-3">{voter?.address}</td>
+                </tr>
+              ))}
+              {/* <tr className="bg-gray-800">
                 <td className="p-3">02</td>
                 <td className="p-3">01</td>
                 <td className="p-3">Javed Iqbal</td>
@@ -121,7 +130,7 @@ const RegisteredVoters = () => {
                 <td className="p-3">Jafar Ali</td>
                 <td className="p-3">39</td>
                 <td className="p-3">35101-670525</td>
-              </tr>
+              </tr> */}
             </tbody>
           </table>
         </div>

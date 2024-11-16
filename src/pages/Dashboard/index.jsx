@@ -12,7 +12,7 @@ const Dashboard = () => {
         navigate("/register-voters");
         break;
       case 2:
-        navigate("/total-votes");
+        navigate("/total-votes/1");
         break;
       case 3:
         navigate("/poling-stations");
@@ -45,38 +45,20 @@ const Dashboard = () => {
       </div>
 
       <div className="grid grid-cols-2 gap-4">
-        <div
-          className="bg-gray-800 rounded-lg p-4 text-center cursor-pointer"
-          onClick={() => handleClick(1)}
-        >
+        <div className="bg-gray-800 rounded-lg p-4 text-center cursor-pointer" onClick={() => handleClick(1)}>
           <h3 className="text-lg font-semibold text-green-500">Total Voters</h3>
           <p className="text-2xl font-bold">50,000</p>
         </div>
-        <div
-          className="bg-gray-800 rounded-lg p-4 text-center cursor-pointer"
-          onClick={() => handleClick(2)}
-        >
-          <h3 className="text-lg font-semibold text-green-500">
-            Total Casted Votes
-          </h3>
+        <div className="bg-gray-800 rounded-lg p-4 text-center cursor-pointer" onClick={() => handleClick(2)}>
+          <h3 className="text-lg font-semibold text-green-500">Total Casted Votes</h3>
           <p className="text-2xl font-bold">40,000</p>
         </div>
-        <div
-          className="bg-gray-800 rounded-lg p-4 text-center cursor-pointer"
-          onClick={() => handleClick(3)}
-        >
-          <h3 className="text-lg font-semibold text-green-500">
-            Total Polling Stations
-          </h3>
+        <div className="bg-gray-800 rounded-lg p-4 text-center cursor-pointer" onClick={() => handleClick(3)}>
+          <h3 className="text-lg font-semibold text-green-500">Total Polling Stations</h3>
           <p className="text-2xl font-bold">10</p>
         </div>
-        <div
-          className="bg-gray-800 rounded-lg p-4 text-center cursor-pointer"
-          onClick={() => handleClick(4)}
-        >
-          <h3 className="text-lg font-semibold text-green-500">
-            Total Candidates
-          </h3>
+        <div className="bg-gray-800 rounded-lg p-4 text-center cursor-pointer" onClick={() => handleClick(4)}>
+          <h3 className="text-lg font-semibold text-green-500">Total Candidates</h3>
           <p className="text-2xl font-bold">4</p>
         </div>
       </div>

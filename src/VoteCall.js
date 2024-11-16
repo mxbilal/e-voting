@@ -2,7 +2,7 @@
 import axios from "axios";
 
 const voteCall = axios.create({
-  baseURL: "http://localhost:8000/", // Replace with your API base URL
+  baseURL: "http://192.168.100.5:8000/", // Replace with your API base URL
   headers: {
     "Content-Type": "application/json",
     // Add other headers if needed
