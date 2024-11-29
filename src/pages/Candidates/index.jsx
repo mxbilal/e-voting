@@ -188,7 +188,7 @@ const CandidateList = () => {
           <CandidateCard
             candidate={candidate}
             key={index}
-            onClick={() => navigate("candidate-profile/" + candidate.id)}
+            onClick={() => navigate("/candidate-profile/" + candidate.id)}
           />
         ))}
       </div>

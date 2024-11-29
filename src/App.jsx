@@ -45,7 +45,7 @@ const routes = [
       { path: "booth", element: <Booth /> },
       { path: "start-vote/:id", element: <StartVote /> },
       { path: "check-vote/:cnic", element: <CheckVote /> },
-      { path: "choose-candidate", element: <ChooseCandidate /> },
+      { path: "choose-candidate/:voter", element: <ChooseCandidate /> },
       { path: "scan-thumb", element: <ScanThumb /> },
       { path: "vote-success", element: <VoteSuccess /> },
     ],

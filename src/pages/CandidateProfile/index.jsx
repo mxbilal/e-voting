@@ -8,7 +8,7 @@ import { getCandidateProfile } from "../../VoteAPI";
 
 const CandidateDetails = () => {
   const { id } = useParams();
-  const [candidateData, setCandidate] = useState({});
+  const [candidateData, setCandidateData] = useState({});
   const [error, setError] = useState(null);
 
   const fetchCandidate = async () => {
@@ -16,7 +16,7 @@ const CandidateDetails = () => {
     if (res.error) {
       setError(res.message);
     } else {
-      setCandidate(res?.data || {});
+      setCandidateData(res?.data || {});
     }
   };
   useEffect(() => {
@@ -26,7 +26,8 @@ const CandidateDetails = () => {
   if (error) return <div>{error}</div>;
   if (!candidateData) return <div>Candidate not found</div>;
 
-  const { candidate, total_votes, percentage } = candidateData;
+  const { candidate = {}, total_votes = 0, percentage = 0 } = candidateData;
+  console.log(11111, candidate);
 
   return (
     <div className="border border-gray-600 rounded-md text-white p-5">
@@ -45,7 +46,7 @@ const CandidateDetails = () => {
           </div>
           <div className="px-4 rounded">
             <p className="text-sm">Father's Name</p>
-            <div className="border border-gray-600 rounded-md text-white p-2">{/* Empty field for static data */}</div>
+            <div className="border border-gray-600 rounded-md text-white p-2">{candidate?.father_name}</div>
           </div>
         </div>
 
@@ -64,37 +65,37 @@ const CandidateDetails = () => {
         <div className="grid grid-cols-2 gap-3">
           <div className="px-4 rounded">
             <p className="text-sm">Date of Birth</p>
-            <div className="border border-gray-600 rounded-md text-white p-2">{/* Empty field for static data */}</div>
+            <div className="border border-gray-600 rounded-md text-white p-2">{candidate?.date_of_birth}</div>
           </div>
           <div className="px-4 rounded">
             <p className="text-sm">CNIC Number</p>
-            <div className="border border-gray-600 rounded-md text-white p-2">{/* Empty field for static data */}</div>
+            <div className="border border-gray-600 rounded-md text-white p-2">{candidate?.cnic}</div>
           </div>
         </div>
-        <div className="px-4 rounded">
+        {/* <div className="px-4 rounded">
           <p className="text-sm">Address</p>
-          <div className="border border-gray-600 rounded-md text-white p-2">{/* Empty field for static data */}</div>
-        </div>
+          <div className="border border-gray-600 rounded-md text-white p-2">{/* Empty field for static data </div>
+        </div> */}
         <div className="grid grid-cols-2 gap-3">
           <div className="px-4 rounded">
             <p className="text-sm">Council</p>
-            <div className="border border-gray-600 rounded-md text-white p-2">{candidate?.council || ""}</div>
+            <div className="border border-gray-600 rounded-md text-white p-2">{candidate?.council?.name || ""}</div>
           </div>
           <div className="px-4 rounded">
             <p className="text-sm">Tehseel</p>
-            <div className="border border-gray-600 rounded-md text-white p-2">{candidate?.tehsil || ""}</div>
+            <div className="border border-gray-600 rounded-md text-white p-2">{candidate?.tehsil?.name || ""}</div>
           </div>
           <div className="px-4 rounded">
             <p className="text-sm">District</p>
-            <div className="border border-gray-600 rounded-md text-white p-2">{candidate?.district || ""}</div>
+            <div className="border border-gray-600 rounded-md text-white p-2">{candidate?.district?.name || ""}</div>
           </div>
           <div className="px-4 rounded">
             <p className="text-sm">Division</p>
-            <div className="border border-gray-600 rounded-md text-white p-2">{candidate?.division || ""}</div>
+            <div className="border border-gray-600 rounded-md text-white p-2">{candidate?.division?.name || ""}</div>
           </div>
           <div className="px-4 rounded">
             <p className="text-sm">Province</p>
-            <div className="border border-gray-600 rounded-md text-white p-2">{candidate?.province || ""}</div>
+            <div className="border border-gray-600 rounded-md text-white p-2">{candidate?.province?.name || ""}</div>
           </div>
         </div>
       </div>
@@ -111,7 +112,7 @@ const CandidateDetails = () => {
         <div className="bg-gray-800 p-5 rounded-lg flex items-center justify-between">
           <div>
             <p className="text-lg font-bold">Percentage</p>
-            <h3 className="text-4xl font-bold text-white">{percentage || 0}%</h3>
+            <h3 className="text-4xl font-bold text-white">{(percentage || 0).toFixed(2)}%</h3>
           </div>
           <img src={pieChart} width={60} alt="" />
         </div>

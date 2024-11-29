@@ -1,18 +1,39 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { FaCheckCircle } from "react-icons/fa";
 import CongratsImage from "../../assets/checked.svg";
 import crossIcon from "../../assets/cross.svg";
 import VotingResult from "../../components/VotingResult";
 import { useNavigate, useParams } from "react-router-dom";
+import voteCall from "../../VoteCall";
 
 const CheckVote = () => {
   const { cnic } = useParams();
   const canVote = true; //                                                                                                                       parseInt(cnic.split("")[0] || "0") % 2 === 0;
   const navigate = useNavigate();
+  const [data, setData] = useState({});
 
   const handleConfirm = () => {
-    navigate("/choose-candidate");
+    navigate("/choose-candidate/" + data?.id);
   };
+
+  const handleCheckNow = async () => {
+    try {
+      let res = await voteCall.post("user/verify_cnic/", { cnic });
+      const { data, status } = res;
+      if (status === 200 && data) {
+        const { result, code, error } = data;
+        if (code === 0 && !error) {
+          setData(result || {});
+        }
+      } else alert("Something went wrong");
+    } catch (e) {
+      let message = e?.response?.data?.message || "Something went wrong";
+      alert(message);
+    }
+  };
+  useEffect(() => {
+    handleCheckNow();
+  }, []);
   return (
     <div className=" text-white p-5 flex flex-col items-center">
       {
@@ -33,25 +54,23 @@ const CheckVote = () => {
       <div className="w-full max-w-md space-y-4 mb-5">
         <div className="px-2 rounded">
           <p className="text-sm">Name</p>
-          <div className="border border-gray-600 text-white p-2 rounded">Muhammad Haneef</div>
+          <div className="border border-gray-600 text-white p-2 rounded">{data?.name}</div>
         </div>
         <div className="px-2 rounded">
           <p className="text-sm">Father's Name</p>
-          <div className="border border-gray-600 text-white p-2 rounded">Muhammad Ramzan</div>
+          <div className="border border-gray-600 text-white p-2 rounded">{data?.father_name}</div>
         </div>
         <div className="px-2 rounded">
-          <p className="text-sm">Age</p>
-          <div className="border border-gray-600 text-white p-2 rounded">65</div>
+          <p className="text-sm">Polling Station</p>
+          <div className="border border-gray-600 text-white p-2 rounded">{data?.polling_station?.name}</div>
         </div>
         <div className="px-2 rounded">
           <p className="text-sm">CNIC Number</p>
-          <div className="border border-gray-600 text-white p-2 rounded">35201-7307006-1</div>
+          <div className="border border-gray-600 text-white p-2 rounded">{cnic}</div>
         </div>
         <div className="px-2 rounded">
           <p className="text-sm">Address</p>
-          <div className="border border-gray-600 text-white p-2 rounded">
-            Dak Khana Gadpur, China Hatar, Tehseel Chunian, District Qasur
-          </div>
+          <div className="border border-gray-600 text-white p-2 rounded">{data?.address}</div>
         </div>
       </div>
       {/* <p>*Press below button to confirm your adentity</p> */}
