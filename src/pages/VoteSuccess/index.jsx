@@ -12,7 +12,7 @@ const candidates = [
 ];
 const VoteSuccess = () => {
   const location = useLocation();
-  const { candidate } = location.state;
+  const candidate = location.state;
   return (
     <div className="text-white flex flex-col gap-5 p-20 ">
       <div className="flex flex-col  ">

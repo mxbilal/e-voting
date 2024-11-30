@@ -1,5 +1,17 @@
 import voteCall from "./VoteCall";
 
+export const getDashboardData = async () => {
+  try {
+    let res = await voteCall.get(`/user/dashboardstats/1`);
+    const { error, result, message, code } = res.data;
+    if (code === 0) {
+      return { success: true, error: false, message, data: result };
+    }
+  } catch (error) {
+    return { success: false, data: [], error };
+  }
+};
+
 export const getVoters = async () => {
   try {
     let res = await voteCall.get(`/user/voters/?province=1&district=2&tehsil=1&council=1&polling_station=1`);
