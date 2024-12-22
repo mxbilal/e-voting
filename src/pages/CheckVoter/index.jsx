@@ -3,10 +3,12 @@ import { FaCheckCircle } from "react-icons/fa";
 import CongratsImage from "../../assets/congrats.svg";
 import crossIcon from "../../assets/cross.svg";
 import VotingResult from "../../components/VotingResult";
-import { useParams } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 
 const CheckVoter = () => {
   const { cnic } = useParams();
+  const location = useLocation()
+
   const canVote = true; // parseInt(cnic.split("")[0] || "0") % 2 === 0;
   return (
     <div className=" text-white p-5 flex flex-col items-center">

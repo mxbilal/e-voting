@@ -32,7 +32,7 @@ const VerifyVoter = () => {
       if (status === 200 && data) {
         const { result, code, error } = data;
         if (code === 0 && !error) {
-          navigate("/check-voter/" + cnic);
+          navigate("/check-voter/" + cnic,{state:result});
         }
       } else alert("Something went wrong");
     } catch (e) {

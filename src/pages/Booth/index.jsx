@@ -13,8 +13,8 @@ const Booth = () => {
       setBooths(res.data);
     }
   };
-  const handleBooth = (id) => {
-    navigate("/start-vote/" + id);
+  const handleBooth = (dt) => {
+    navigate("/start-vote/" + dt.id+"/"+dt.gender);
   };
   useEffect(() => {
     getBoothAPI();
@@ -30,7 +30,7 @@ const Booth = () => {
           {booths
             .filter((a) => a.gender === "Male")
             .map((dt) => (
-              <button className="bg-green-800 text-white text-lg py-3 rounded-md" onClick={() => handleBooth(dt.id)}>
+              <button className="bg-green-800 text-white text-lg py-3 rounded-md" onClick={() => handleBooth(dt)}>
                 {dt?.name}
               </button>
             ))}
@@ -43,7 +43,7 @@ const Booth = () => {
           {booths
             .filter((a) => a.gender === "Female")
             .map((dt) => (
-              <button className="bg-green-800 text-white text-lg py-3 rounded-md" onClick={() => handleBooth(dt.id)}>
+              <button className="bg-green-800 text-white text-lg py-3 rounded-md" onClick={() => handleBooth(dt)}>
                 {dt?.name}
               </button>
             ))}

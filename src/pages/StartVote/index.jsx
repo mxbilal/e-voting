@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import { FaIdCard } from "react-icons/fa";
 import loginLogo from "../../assets/login_logo.svg";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import voteCall from "../../VoteCall";
 
 const StartVote = () => {
+  const { id,gender } = useParams();
   const [cnic, setCnic] = useState("");
   const [error, setError] = useState("");
   const navigate = useNavigate();
@@ -30,7 +31,10 @@ const StartVote = () => {
       if (status === 200 && data) {
         const { result, code, error } = data;
         if (code === 0 && !error) {
-          navigate("/check-vote/" + cnic);
+          if(result.gender === gender){
+            navigate("/check-vote/" + cnic);
+          }
+          else alert("Please select booth of your gender!")
         }
       } else alert("Something went wrong");
     } catch (e) {

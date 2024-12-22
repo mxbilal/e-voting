@@ -43,7 +43,7 @@ const routes = [
       { path: "verify-voter", element: <VerifyVoter /> },
       { path: "check-voter/:cnic", element: <CheckVoter /> },
       { path: "booth", element: <Booth /> },
-      { path: "start-vote/:id", element: <StartVote /> },
+      { path: "start-vote/:id/:gender", element: <StartVote /> },
       { path: "check-vote/:cnic", element: <CheckVote /> },
       { path: "choose-candidate/:voter", element: <ChooseCandidate /> },
       { path: "scan-thumb", element: <ScanThumb /> },
